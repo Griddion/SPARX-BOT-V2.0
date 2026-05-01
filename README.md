@@ -19,5 +19,7 @@ Step 4 - you should see a screen that asks you to name it - you can name it what
 <img width="698" height="459" alt="step 4" src="https://github.com/user-attachments/assets/f1b51010-210c-4bcb-bf14-74317896a236" />
 
 Step 5 - when the api key comes up, copy it immediately as you wont see it again
+<img width="736" height="328" alt="step 5" src="https://github.com/user-attachments/assets/be7a1b06-cda2-4561-a499-967c05b57d5d" />
+
 
 Step 6 - on the setup screen when running the app, paste it there and you are good to go
