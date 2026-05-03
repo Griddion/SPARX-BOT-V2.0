@@ -22,4 +22,4 @@ Step 5 - when the api key comes up, copy it immediately as you wont see it again
 <img width="736" height="328" alt="step 5" src="https://github.com/user-attachments/assets/be7a1b06-cda2-4561-a499-967c05b57d5d" />
 
 Step 6 - on the setup screen when running the app, paste it there and you are good to go
-<img width="751" height="535" alt="step 6" src="https://github.com/user-attachments/assets/b38f4d11-69e6-4ffa-b840-36ba9d4108cf" />
+<img width="753" height="536" alt="step 6" src="https://github.com/user-attachments/assets/c7f35378-ba7b-40a3-858d-0536f0629c84" />
