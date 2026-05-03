@@ -1,4 +1,5 @@
 import os
+import sys
 from dotenv import load_dotenv, set_key
 from groq import Groq, AuthenticationError
 from img_encoder import encode_image
@@ -65,6 +66,15 @@ For multiple questions:
 Keep explanations concise but informative
 '''
 
+# for resources: get absolute path for all resources
+def resource_path(relative_path):
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 # popup widget
 class AnswerWidget(QWidget):
@@ -75,7 +85,7 @@ class AnswerWidget(QWidget):
         x = gui.size()[0]
         
         # set the app icon and app name
-        self.setWindowIcon(QIcon('source_code/bot.png'))
+        self.setWindowIcon(QIcon(resource_path('bot.png')))
         self.setWindowTitle('SPARX BOT V2')
         
         # adjust window size and move to top right of screen
@@ -83,7 +93,7 @@ class AnswerWidget(QWidget):
         self.move(x - 750, 0)
         
         # define global font for all text in window
-        font1 = QFontDatabase.addApplicationFont('source_code/fonts/Cause-VariableFont_wght.ttf')
+        font1 = QFontDatabase.addApplicationFont(resource_path('fonts/Cause-VariableFont_wght.ttf'))
         families1 = QFontDatabase.applicationFontFamilies(font1)
         font_families1 = dict(zip(families1, families1))
         
@@ -514,7 +524,7 @@ class AnswerWidget(QWidget):
         
         # hides the UI to take a screenshot
         self.hide()
-        gui.screenshot('question.png')
+        QTimer.singleShot(100, gui.screenshot('question.png'))
         
         # encodes the image to base 64 for the image url to be sent to the AI
         b64_img = encode_image('question.png')
