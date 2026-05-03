@@ -8,6 +8,7 @@ import json
 from PySide6.QtGui import QIcon, QFont, QFontDatabase
 from PySide6.QtCore import Qt, QTimer
 from PySide6.QtWidgets import QWidget, QLabel, QPushButton, QScrollArea, QVBoxLayout, QHBoxLayout, QFrame, QApplication, QLineEdit
+import time
 
 
 
@@ -97,7 +98,7 @@ class AnswerWidget(QWidget):
         families1 = QFontDatabase.applicationFontFamilies(font1)
         font_families1 = dict(zip(families1, families1))
         
-        self.font = QFont(font_families1['Cause SemiBold'], 15)
+        self.font = QFont(font_families1['Cause SemiBold'], 20)
         
         # set background colour to very dark blue
         self.setStyleSheet('background-color: #00001A')
@@ -189,7 +190,7 @@ class AnswerWidget(QWidget):
         self.explain_hover_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
         # -- check for explain button signals: hovered or clicked
-        self.explain_button.enterEvent = lambda event: self.explain_hover_label.setText('Hide explanation') if self.explain_hover_label.isVisible() else self.explain_hover_label.setText('Show explanation')
+        self.explain_button.enterEvent = self.explain_hover_enter
         self.explain_button.leaveEvent = lambda event: self.explain_hover_label.setText('')
         self.explain_button.clicked.connect(self.show_explanation)
         
@@ -270,7 +271,7 @@ class AnswerWidget(QWidget):
         self.info_hover_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
         # -- check for info button signals: hovered or clicked
-        self.info_button.enterEvent = lambda event: self.info_hover_label.setText('Hide info') if self.explain_hover_label.isVisible() else self.explain_hover_label.setText('Show info')
+        self.info_button.enterEvent = self.info_hover_enter
         self.info_button.leaveEvent = lambda event: self.info_hover_label.setText('')
         self.info_button.clicked.connect(self.toggle_info)
         
@@ -524,7 +525,8 @@ class AnswerWidget(QWidget):
         
         # hides the UI to take a screenshot
         self.hide()
-        QTimer.singleShot(100, gui.screenshot('question.png'))
+        time.sleep(0.5)
+        gui.screenshot('question.png')
         
         # encodes the image to base 64 for the image url to be sent to the AI
         b64_img = encode_image('question.png')
@@ -564,6 +566,18 @@ class AnswerWidget(QWidget):
         
         self.show()
         self.explain_button.setVisible(True)
+    
+    def explain_hover_enter(self, event):
+        if self.explain_scroll.isVisible(): 
+            self.explain_hover_label.setText('Hide explanation')
+        else: 
+            self.explain_hover_label.setText('Show explanation')
+
+    def info_hover_enter(self, event):
+        if self.info_scroll.isVisible(): 
+            self.info_hover_label.setText('Hide info')
+        else: 
+            self.info_hover_label.setText('Show info')
     
     # toggles the explanation area
     def show_explanation(self):
